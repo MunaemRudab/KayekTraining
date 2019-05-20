@@ -1,0 +1,84 @@
+var library = [
+    {
+        author: 'George Martin',
+        title: 'Game of Thrones',
+        readingStatus: true,
+        rating: 4.0,
+        notes: ['Read page 20 again'],
+        getNotes: function(){
+          return this.notes;
+        }
+    },
+    {
+        author: 'Adam Lambert',
+        title: 'Moking Jay',
+        readingStatus: true,
+        rating: 3.0,
+        notes: ['Read page 20 again','Okay Thanks'],
+        getNotes: function(){
+          return this.notes;
+        }
+    },
+    {
+        author: 'JK Rowling',
+        title: 'Harry Potter',
+        readingStatus: false,
+        rating: undefined
+    }
+]
+
+function CreateBook(author, title, readingStatus, rating, notes){
+  var newItem = new Object(book);
+  newItem.author = author;
+  newItem.title = title;
+  newItem.readingStatus = readingStatus;
+  newItem.rating = rating;
+  newItem.notes = notes;
+  return newItem;
+}
+
+function getActiveBooks(){
+  return library.filter(item => item.readingStatus == true);
+}
+
+function searchTitle(title){
+  return library.find(item => item.title == title);
+}
+
+function setRating(title, rating){
+  var bookItem = library.find(item => item.title == title);
+  return bookItem == undefined ? false : true;
+}
+
+function addNotes(title, note){
+  var book =  searchTitle(title);
+  if(book['notes'] == undefined){
+    notes = new Object(note);
+    book['notes'] = notes;
+  }
+  else{
+    book.notes.push(note);
+  }
+}
+
+function showAllNotesOfBook(title){
+  var bookItem = searchTitle(title);
+  return bookItem == undefined ? 'Not Found' : bookItem.notes; 
+}
+
+
+// var activeBooks = getActiveBooks();
+// var searchedBook = searchTitle('Moking Jay');
+// var isSet = setRating('Moking Jay', 2.5);
+// addNotes('Game of Thrones', ['New Notes', 'Next Note']);
+// var notes = showAllNotesOfBook('Game of Thrones');
+// var book = {
+//   author: 'Munaem Rudab',
+//   title: 'JS',
+//   rating: 3.0,
+//   readingStatus: false,
+//   notes: ['Patari','Shazam']
+// }
+// var book = CreateBook('Munaem Rudab1','JS',3.0,false,['Patari','Shazam']);
+// console.log(searchedBook.getNotes());
+

@@ -1,0 +1,55 @@
+function ACRemote(mode, state, temperature){
+  this.mode = mode;
+  this.temperature = temperature != undefined ? temperature : 26;
+  this.state = state != undefined ? state : false;
+  this.prevTemp = 26;
+  this.prevMode = mode;
+  this.toggleState = function (){
+    return !this.state;
+  }
+  
+  this.switchModes = function(mode){
+    this.prevMode = this.mode;
+    var objRemote = this;
+    function set(){
+      objRemote.mode = mode;
+    }
+    return set();
+  };
+  
+  this.setTemperature = function(temperature){
+    this.prevTemp = this.temperature;
+    var objRemote = this;
+    function set(){
+      objRemote.temperature += temperature;
+    }
+    return set();
+  };
+  
+  this.displayAttr = function(){
+    return "Mode: "+this.mode + " Temp: " + this.temperature;
+  };
+  
+  this.setTimer = function(timeOut){
+    setTimeout(
+      function(){ 
+        this.state = false; 
+        console.log("Switched Off");
+      }, timeOut);
+  };
+}
+
+var obj1 = new ACRemote('auto', true, 25);
+var obj2 = new ACRemote('dry', false, 15);
+console.log(obj1);
+console.log(obj2);
+obj1.setTemperature(5);
+obj2.setTemperature(-20)
+console.log("Current: "+obj1.temperature+ " Prev: "+ obj1.prevTemp);
+console.log("Current: "+obj2.temperature+ " Prev: "+ obj2.prevTemp);
+obj1.switchModes('cool');
+console.log("Current: "+obj1.mode+ " Prev: "+ obj1.prevMode);
+console.log("Current: "+obj2.mode+ " Prev: "+ obj2.prevMode);
+console.log(obj1.toggleState());
+console.log(obj1.displayAttr());
+obj1.setTimer(3000);
